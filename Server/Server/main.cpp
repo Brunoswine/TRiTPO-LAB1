@@ -9,6 +9,26 @@ using namespace std;
 
 int main() {
 
+
+	HANDLE serverWrites = CreateEvent(NULL, TRUE, TRUE, "serverWrites");
+	if (!serverWrites) {
+		cout << "Failed to create serverWrites Event!" << endl;
+		return 0;
+	}
+
+	int a = 1;
+
+	if (a == 0) {
+		cout << "This is Reciever" << endl;
+		ResetEvent(serverWrites);
+		Sleep(5);
+		
+	}
+	else {
+		cout << "This is Source" << endl;
+		
+	}
+
 	HANDLE hWrite = CreateFile("COM1", GENERIC_WRITE, 0, NULL, OPEN_EXISTING, FILE_FLAG_OVERLAPPED, NULL);
 	if (!hWrite) {
 		cout << "Failed to open port!" << endl;
