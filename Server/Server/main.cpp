@@ -9,7 +9,6 @@ using namespace std;
 
 int main() {
 
-
 	HANDLE serverWrites = CreateEvent(NULL, TRUE, TRUE, "serverWrites");
 	if (!serverWrites) {
 		cout << "Failed to create serverWrites Event!" << endl;
@@ -22,11 +21,11 @@ int main() {
 		cout << "This is Reciever" << endl;
 		ResetEvent(serverWrites);
 		Sleep(5);
-		
+		//functionRecieve();
 	}
 	else {
 		cout << "This is Source" << endl;
-		
+		//functionSource();
 	}
 
 	HANDLE hWrite = CreateFile("COM1", GENERIC_WRITE, 0, NULL, OPEN_EXISTING, FILE_FLAG_OVERLAPPED, NULL);
@@ -62,7 +61,7 @@ int main() {
 	PROCESS_INFORMATION client;																//Создание структуры PROCESS_INFORMATION для нового процесса
 	ZeroMemory(&client, sizeof(PROCESS_INFORMATION));										//Обнуление структуры pi
 
-	if (!CreateProcess("C:\\Users\\Brunoswine\\source\\repos\\APK\\LAB7\\Client\\Debug\\client.exe",																//Создание нового процесса
+	if (!CreateProcess("C:\\Users\\Brunoswine\\source\\repos\\TRiTPO\\LAB1\\Client\\Debug\\client.exe",																//Создание нового процесса
 		NULL,
 		NULL,
 		NULL,
@@ -119,6 +118,6 @@ int main() {
 	CloseHandle(hWrite);
 	CloseHandle(readyToRead);
 	CloseHandle(readyToWrite);
-
+	CloseHandle(serverWrites);
 	return 0;
 }

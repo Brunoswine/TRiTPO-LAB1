@@ -9,6 +9,12 @@ int main() {
 	char buf;		//Буфер для записи
 	int f = 1;
 
+	HANDLE serverWrites = OpenEvent(EVENT_ALL_ACCESS, FALSE, "serverWrites");
+	if (!serverWrites) {
+		cout << "Failed to open serverWrites Event!" << endl;
+		return 0;
+	}
+
 	HANDLE hRead = CreateFile("COM2", GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_FLAG_OVERLAPPED, NULL);
 	if (!hRead) {
 		cout << "Failed to open port!" << endl;
@@ -76,6 +82,7 @@ int main() {
 	CloseHandle(readyToRead);
 	CloseHandle(readyToWrite);
 	CloseHandle(finishedReading);
+	CloseHandle(serverWrites);
 
 	return 0;
 }
